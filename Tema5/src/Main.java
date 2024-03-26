@@ -11,7 +11,6 @@ public class Main
             String line=reader_interval.readLine();
             while(line!=null)
             {
-                
                 String new_string=line.replace("[", "");
                 String final_string=new_string.replace("]","");
                 String[] string_interval = final_string.split(",");
