@@ -9,6 +9,12 @@ public class Main
         {
             BufferedReader reader_interval = new BufferedReader(new FileReader("intervale.dat"));
             String line=reader_interval.readLine();
+            String string_de_pus_in_fisier="";
+            BufferedReader reader_verificare_valori = new BufferedReader(new FileReader("numere.dat"));
+            String verificare_valori = reader_verificare_valori.readLine();
+            if(interval.verificareValori(verificare_valori)==1)
+            {
+                reader_verificare_valori.close();
             while(line!=null)
             {
                 String new_string=line.replace("[", "");
@@ -24,11 +30,19 @@ public class Main
                     {
                         Double x=Double.parseDouble(valori_fara_spatii[i]);
                         interval_creat.verify(x);
-                    }
-                interval_creat.scriereInterval();
-                reader_valori.close();
+                    }     
+                    string_de_pus_in_fisier=string_de_pus_in_fisier+"Intervalul: "+interval_creat.limita_de_jos+" -> "+interval_creat.limita_de_sus+" are "+interval_creat.numere_din_interval+" numere; ";
+                    string_de_pus_in_fisier=string_de_pus_in_fisier+"procentul obtinut este: "+(interval_creat.numere_din_interval*100)/interval.numar_de_teste+"%"+"\n";
+                    interval_creat.scriereInterval(string_de_pus_in_fisier);
+                    reader_valori.close();
             }
             reader_interval.close();
+            }
+            else
+            {
+                reader_verificare_valori.close();
+                System.out.println("Aveti valori duplicate in fisier"); 
+            }
         }
         catch(IOException e)
         {

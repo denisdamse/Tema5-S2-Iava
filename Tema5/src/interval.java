@@ -4,8 +4,8 @@ import java.io.IOException;
 public class interval {
     public Double limita_de_jos;
     public Double limita_de_sus;
-    private static int numar_de_teste;
-    private int numere_din_interval=0;
+    public static int numar_de_teste;
+    public int numere_din_interval=0;
     public interval(Double limita_De_jos,Double limita_De_sus)
     {
         this.limita_de_jos=limita_De_jos;
@@ -18,22 +18,32 @@ public class interval {
         {
             this.numere_din_interval++;
         }
-        
     }
-    
-    public void scriereInterval()
-    {               
-        try 
-        { 
-            FileWriter fileWriter = new FileWriter("statistica.dat");
-            fileWriter.append("Intervalul: "+this.limita_de_jos+" -> "+this.limita_de_sus+" are "+this.numere_din_interval+" numere;");
-            fileWriter.append("procentul obtinut este: "+(this.numere_din_interval*100)/numar_de_teste+"%");
-            fileWriter.append("\n");
-            fileWriter.close();
-        } 
-        catch (IOException e) 
+    public static int verificareValori(String s)
+    {
+        
+        String[] string = s.split(" ");
+        
+        for(int i=0;i<string.length-2;i++)
         {
-            System.out.println("Nu am gasit fisierul");
+            for(int j=i+1;j<string.length-1;j++)
+            {
+                if(Double.parseDouble(string[i])==Double.parseDouble(string[j]))
+                {
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    } 
+    public void scriereInterval(String string_de_pus_in_fisier)
+    {
+        try {
+            FileWriter fileWriter = new FileWriter("statistica.dat");
+            fileWriter.append(string_de_pus_in_fisier);
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("IOException");
         }
     }
 }
